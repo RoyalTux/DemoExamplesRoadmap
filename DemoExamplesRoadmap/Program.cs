@@ -1,21 +1,15 @@
-﻿using DemoExamplesRoadmap.Classes;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
+﻿using DemoExamplesRoadmap.InputOutputViaFilesystem;
+using System.Threading.Tasks;
 
 namespace DemoExamplesRoadmap
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            
+            FileStreamExample fileStreamExample = new FileStreamExample();
+            await fileStreamExample.WriteFileAsync();
+            await fileStreamExample.ReadFileAsync();
         }
     }
 }
