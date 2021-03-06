@@ -10,6 +10,8 @@ namespace DemoExamplesRoadmap
             FileStreamExample fileStreamExample = new FileStreamExample();
             await fileStreamExample.WriteFileAsync();
             await fileStreamExample.ReadFileAsync();
+            fileStreamExample.WriteReadFileSeek();
+            await fileStreamExample.ManualDisposingFileStreamAsync();
         }
     }
 }
