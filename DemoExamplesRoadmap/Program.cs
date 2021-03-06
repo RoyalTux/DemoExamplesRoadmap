@@ -12,6 +12,14 @@ namespace DemoExamplesRoadmap
             await fileStreamExample.ReadFileAsync();
             fileStreamExample.WriteReadFileSeek();
             await fileStreamExample.ManualDisposingFileStreamAsync();
+
+            StreamWriterReaderExample streamWriterReaderExample = new StreamWriterReaderExample();
+            await streamWriterReaderExample.WriteFileAsync();
+            await streamWriterReaderExample.ReadFileAsync();
+
+            BinaryWriterReaderExample binaryWriterReaderExample = new BinaryWriterReaderExample();
+            binaryWriterReaderExample.WriteFile();
+            binaryWriterReaderExample.ReadFile();
         }
     }
 }

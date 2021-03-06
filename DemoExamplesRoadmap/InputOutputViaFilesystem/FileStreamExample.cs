@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DemoExamplesRoadmap.InputOutputViaFilesystem
 {
-    public class FileStreamExample
+    public class FileStreamExample : DeleteFiles
     {
         string fileDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         string testText = "hello world";
@@ -115,18 +115,10 @@ namespace DemoExamplesRoadmap.InputOutputViaFilesystem
                 {
                     fstream.Close();
                     Console.WriteLine("fstream closed!");
-                }               
+                }
             }
 
             DeleteFileIfExists(fileDirectory + "\\note_3.txt");
-        }
-
-        public void DeleteFileIfExists(string fileLocation)
-        {
-            if (File.Exists(fileLocation))
-            {
-                File.Delete(fileLocation);
-            }
         }
     }
 }
