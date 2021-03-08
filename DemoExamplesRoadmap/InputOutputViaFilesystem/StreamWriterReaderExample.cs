@@ -9,15 +9,14 @@ namespace DemoExamplesRoadmap.InputOutputViaFilesystem
     public class StreamWriterReaderExample : DeleteFiles
     {
         string fileDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-        string testText = "hello world";
 
-        public async Task WriteFileAsync()
+        public async Task WriteFileAsync(string text)
         {
             try
             {
                 using (StreamWriter sw = new StreamWriter($"{fileDirectory}\\note_4.txt", false, Encoding.Default))
                 {
-                    await sw.WriteLineAsync(testText);
+                    await sw.WriteLineAsync(text);
                 }
 
                 using (StreamWriter sw = new StreamWriter($"{fileDirectory}\\note_4.txt", true, Encoding.Default))

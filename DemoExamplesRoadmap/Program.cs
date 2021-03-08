@@ -1,5 +1,7 @@
-﻿using DemoExamplesRoadmap.EnvironmentVariables;
+﻿using DemoExamplesRoadmap.AppSettings;
+using DemoExamplesRoadmap.EnvironmentVariables;
 using DemoExamplesRoadmap.InputOutputViaFilesystem;
+using DemoExamplesRoadmap.LocalAppDataFolder;
 using System;
 using System.Threading.Tasks;
 
@@ -16,7 +18,8 @@ namespace DemoExamplesRoadmap
             await fileStreamExample.ManualDisposingFileStreamAsync();
 
             StreamWriterReaderExample streamWriterReaderExample = new StreamWriterReaderExample();
-            await streamWriterReaderExample.WriteFileAsync();
+            string testText = "hello world";
+            await streamWriterReaderExample.WriteFileAsync(testText);
             await streamWriterReaderExample.ReadFileAsync();
 
             BinaryWriterReaderExample binaryWriterReaderExample = new BinaryWriterReaderExample();
@@ -27,6 +30,19 @@ namespace DemoExamplesRoadmap
 
             EnvironmentVariablesExample environmentVariablesExample = new EnvironmentVariablesExample();
             environmentVariablesExample.DisplaySeveralEnvironmentVariables();
+
+            Console.WriteLine("\n\nLocal App Data Example:\n\n");
+
+            LocalAppDataExample localAppDataExample = new LocalAppDataExample();
+            string assemblyFolderPath = localAppDataExample.AssemblyFolderPath();
+            Console.WriteLine("Assembly folder path: " + assemblyFolderPath);
+            string fileName = "appsettings.json";
+            await localAppDataExample.GetFileAsync(fileName);
+
+            Console.WriteLine("\n\nApp Settings Example:\n\n");
+
+            AppSettingsExample appSettingsExample = new AppSettingsExample();
+            appSettingsExample.LogExample();
         }
     }
 }
