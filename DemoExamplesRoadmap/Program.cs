@@ -2,6 +2,7 @@
 using DemoExamplesRoadmap.EnvironmentVariables;
 using DemoExamplesRoadmap.InputOutputViaFilesystem;
 using DemoExamplesRoadmap.LocalAppDataFolder;
+using DemoExamplesRoadmap.MongoDbExamples;
 using System;
 using System.Threading.Tasks;
 
@@ -42,7 +43,11 @@ namespace DemoExamplesRoadmap
             Console.WriteLine("\n\nApp Settings Example:\n\n");
 
             AppSettingsExample appSettingsExample = new AppSettingsExample();
-            appSettingsExample.LogExample();
+            await appSettingsExample.LogExample();
+
+            Console.WriteLine("\n\nLogs from Mongo database:\n\n");
+            MongoDbLogger mongoDbLogger = new MongoDbLogger();
+            await mongoDbLogger.GetLogsFromMongoDb();
         }
     }
 }

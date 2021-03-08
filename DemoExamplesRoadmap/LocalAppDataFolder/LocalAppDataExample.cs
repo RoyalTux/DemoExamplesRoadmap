@@ -66,7 +66,7 @@ namespace DemoExamplesRoadmap.LocalAppDataFolder
                 "email2@test.com",
                 "email3@test.com"
             };
-            appSettingsStructure.ConnectionStrings = "ConnectionStringToSQLDatabase";
+            appSettingsStructure.ConnectionStrings = "mongodb://localhost";
             string appsettingsJson = JsonConvert.SerializeObject(appSettingsStructure, Formatting.Indented);
 
             try

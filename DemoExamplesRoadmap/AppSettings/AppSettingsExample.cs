@@ -1,4 +1,5 @@
 ﻿using DemoExamplesRoadmap.LocalAppDataFolder;
+using DemoExamplesRoadmap.MongoDbExamples;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -12,8 +13,10 @@ namespace DemoExamplesRoadmap.AppSettings
     {
         private IConfigurationRoot configuration;
         private LocalAppDataExample localAppDataExample = new LocalAppDataExample();
+        MongoDbLogger mongoDbLogger = new MongoDbLogger();
+        LogMessage logMessage = new LogMessage();
 
-        public void LogExample()
+        public async Task LogExample()
         {
             Log.Logger = new LoggerConfiguration()
                  .WriteTo.Console(Serilog.Events.LogEventLevel.Debug)
@@ -23,23 +26,27 @@ namespace DemoExamplesRoadmap.AppSettings
 
             try
             {
-                Logging();
+                await Logging();
             }
             catch (Exception exception)
             {
                 Console.WriteLine("Error: ", exception);
+                logMessage.Messages.Add("Error: " + exception);
+                await mongoDbLogger.SaveLogsToMongoDb(logMessage);
             }
         }
 
-        private void Logging()
+        private async Task Logging()
         {
             // Create service collection
             Log.Information("Creating service collection");
+            logMessage.Messages.Add("Creating service collection");
             ServiceCollection serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
 
             // Create service provider
             Log.Information("Building service provider");
+            logMessage.Messages.Add("Building service provider");
             IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
             // Print connection string to demonstrate configuration object is populated
@@ -48,12 +55,17 @@ namespace DemoExamplesRoadmap.AppSettings
             try
             {
                 Log.Information("Starting service");
+                logMessage.Messages.Add("Starting service");
                 serviceProvider.GetService<AppExample>().Run();
                 Log.Information("Ending service");
+                logMessage.Messages.Add("Ending service");
+                await mongoDbLogger.SaveLogsToMongoDb(logMessage);
             }
             catch (Exception exception)
             {
                 Log.Fatal(exception, "Error running service");
+                logMessage.Messages.Add("Error running service");
+                await mongoDbLogger.SaveLogsToMongoDb(logMessage);
                 throw exception;
             }
             finally
