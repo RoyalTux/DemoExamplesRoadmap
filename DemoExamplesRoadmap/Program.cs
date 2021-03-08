@@ -1,4 +1,6 @@
-﻿using DemoExamplesRoadmap.InputOutputViaFilesystem;
+﻿using DemoExamplesRoadmap.EnvironmentVariables;
+using DemoExamplesRoadmap.InputOutputViaFilesystem;
+using System;
 using System.Threading.Tasks;
 
 namespace DemoExamplesRoadmap
@@ -20,6 +22,11 @@ namespace DemoExamplesRoadmap
             BinaryWriterReaderExample binaryWriterReaderExample = new BinaryWriterReaderExample();
             binaryWriterReaderExample.WriteFile();
             binaryWriterReaderExample.ReadFile();
+
+            Console.WriteLine("\n\nEnvironment Variables Example:\n\n");
+
+            EnvironmentVariablesExample environmentVariablesExample = new EnvironmentVariablesExample();
+            environmentVariablesExample.DisplaySeveralEnvironmentVariables();
         }
     }
 }
