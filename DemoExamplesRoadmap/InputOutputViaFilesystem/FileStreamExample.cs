@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DemoExamplesRoadmap.InputOutputViaFilesystem
 {
-    public class FileStreamExample : DeleteFiles
+    public class FileStreamExample : FileDeleter
     {
-        string fileDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+        string fileDirectory = $"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\\";
         string testText = "hello world";
 
         public async Task WriteFileAsync()
@@ -22,9 +22,10 @@ namespace DemoExamplesRoadmap.InputOutputViaFilesystem
 
             Console.WriteLine("Enter string for saving into file: ");
             string text = Console.ReadLine();
+
             try
             {
-                using (FileStream fstream = new FileStream($"{dirInfo}\\note_1.txt", FileMode.OpenOrCreate))
+                using (FileStream fstream = new FileStream($"{dirInfo}note_1.txt", FileMode.OpenOrCreate))
                 {
                     byte[] array = Encoding.Default.GetBytes(text);
                     await fstream.WriteAsync(array, 0, array.Length);
@@ -41,7 +42,7 @@ namespace DemoExamplesRoadmap.InputOutputViaFilesystem
         {
             try
             {
-                using (FileStream fstream = File.OpenRead($"{fileDirectory}\\note_1.txt"))
+                using (FileStream fstream = File.OpenRead($"{fileDirectory}note_1.txt"))
                 {
                     byte[] array = new byte[fstream.Length];
                     await fstream.ReadAsync(array, 0, array.Length);
@@ -54,14 +55,15 @@ namespace DemoExamplesRoadmap.InputOutputViaFilesystem
                 Console.WriteLine("Error: ", exception);
             }
 
-            DeleteFileIfExists(fileDirectory + "\\note_1.txt");
+            DeleteFileIfExists(fileDirectory + "note_1.txt");
         }
 
+        //change to async
         public void WriteReadFileSeek()
         {
             try
             {
-                using (FileStream fstream = new FileStream($"{fileDirectory}\\note_2.txt", FileMode.OpenOrCreate))
+                using (FileStream fstream = new FileStream($"{fileDirectory}note_2.txt", FileMode.OpenOrCreate))
                 {
                     byte[] input = Encoding.Default.GetBytes(testText);
                     fstream.Write(input, 0, input.Length);
@@ -92,7 +94,7 @@ namespace DemoExamplesRoadmap.InputOutputViaFilesystem
                 Console.WriteLine("Error: ", exception);
             }
 
-            DeleteFileIfExists(fileDirectory + "\\note_2.txt");
+            DeleteFileIfExists(fileDirectory + "note_2.txt");
         }
 
         public async Task ManualDisposingFileStreamAsync()
@@ -100,7 +102,7 @@ namespace DemoExamplesRoadmap.InputOutputViaFilesystem
             FileStream fstream = null;
             try
             {
-                fstream = new FileStream($"{fileDirectory}\\note_3.txt", FileMode.OpenOrCreate);
+                fstream = new FileStream($"{fileDirectory}note_3.txt", FileMode.OpenOrCreate);
                 byte[] array = Encoding.Default.GetBytes(testText);
                 await fstream.WriteAsync(array, 0, array.Length);
                 Console.WriteLine("The text was written to a file.");
@@ -114,11 +116,12 @@ namespace DemoExamplesRoadmap.InputOutputViaFilesystem
                 if (fstream != null)
                 {
                     fstream.Close();
+                    fstream.Dispose();
                     Console.WriteLine("fstream closed!");
                 }
             }
 
-            DeleteFileIfExists(fileDirectory + "\\note_3.txt");
+            DeleteFileIfExists(fileDirectory + "note_3.txt");
         }
     }
 }

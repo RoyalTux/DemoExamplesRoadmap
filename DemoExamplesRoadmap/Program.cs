@@ -19,7 +19,7 @@ namespace DemoExamplesRoadmap
             await fileStreamExample.ManualDisposingFileStreamAsync();
 
             StreamWriterReaderExample streamWriterReaderExample = new StreamWriterReaderExample();
-            string testText = "hello world";
+            string testText = "hello world-Dima2020-23-03";
             await streamWriterReaderExample.WriteFileAsync(testText);
             await streamWriterReaderExample.ReadFileAsync();
 

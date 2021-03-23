@@ -18,19 +18,20 @@ namespace DemoExamplesRoadmap.InputOutputViaFilesystem
         }
     }
 
-    public class BinaryWriterReaderExample : DeleteFiles
+    public class BinaryWriterReaderExample : FileDeleter
     {
-        string fileDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-        User[] users = new User[2];
+        string fileDirectory = $"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\\";
+        User[] users = new User[2] 
+        {
+            new User("Vasya", "Walking", 33),
+            new User("Patya", "Dancing", 44)
+        };
 
         public void WriteFile()
         {
-            users[0] = new User("Vasya", "Walking", 33);
-            users[1] = new User("Patya", "Dancing", 44);
-
             try
             {
-                using (BinaryWriter writer = new BinaryWriter(File.Open($"{fileDirectory}\\note_5.txt", FileMode.OpenOrCreate)))
+                using (BinaryWriter writer = new BinaryWriter(File.Open($"{fileDirectory}note_5.txt", FileMode.OpenOrCreate)))
                 {
                     foreach (User user in users)
                     {
@@ -50,7 +51,7 @@ namespace DemoExamplesRoadmap.InputOutputViaFilesystem
         {
             try
             {
-                using (BinaryReader reader = new BinaryReader(File.Open($"{fileDirectory}\\note_5.txt", FileMode.Open)))
+                using (BinaryReader reader = new BinaryReader(File.Open($"{fileDirectory}note_5.txt", FileMode.Open)))
                 {
                     while (reader.PeekChar() > -1)
                     {
@@ -67,7 +68,7 @@ namespace DemoExamplesRoadmap.InputOutputViaFilesystem
                 Console.WriteLine("Error: ", exception.Message);
             }
 
-            DeleteFileIfExists(fileDirectory + "\\note_5.txt");
+            DeleteFileIfExists(fileDirectory + "note_5.txt");
         }
     }
 }

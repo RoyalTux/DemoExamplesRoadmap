@@ -25,6 +25,7 @@ namespace DemoExamplesRoadmap.LocalAppDataFolder
         public string AssemblyFolderPath()
         {
             string folderPath = Path.Combine(LocalAppDataFolderPath, AssemblyName);
+
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
@@ -36,6 +37,7 @@ namespace DemoExamplesRoadmap.LocalAppDataFolder
         public async Task GetFileAsync(string fileName)
         {
             string fileDirectory = AssemblyFolderPath();
+
             if (!File.Exists($"{fileDirectory}\\" + fileName))
             {
                 await CreateAppSettings($"{fileDirectory}\\" + fileName);

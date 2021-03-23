@@ -3,7 +3,8 @@ using System.IO;
 
 namespace DemoExamplesRoadmap.InputOutputViaFilesystem
 {
-    public class DeleteFiles
+    public class FileDeleter
+
     {
         public void DeleteFileIfExists(string fileLocation)
         {
